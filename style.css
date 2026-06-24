@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        180deg,
+        #f4e7c8,
+        #fff8e8,
+        #fffdf6,
+        #fff8e8,
+        #f4e7c8
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#start-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(90%, 800px);
+    flex-direction: column;
+    gap: 2vh;
+    font-family: "Cormorant Garamond";
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #124412;
+}
+#start-screen p {
+    transform: translateX(50vh);
+    animation: start-text 1.5s 0.3s ease forwards;
+}
+#start-screen p:nth-child(2) {
+    transform: translateX(-50vh);
+    animation-delay: 0.8s;
+}
+@keyframes start-text {
+    from {
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+#start-screen button {
+    padding: 1rem;
+    color: ivory;
+    background: #d79a78;
+    border: 2px solid #d0a218;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    font-weight: bold;
+    transform: translateX(50vh);
+    transition: 300ms ease;
+    animation: start-text 2.5s 1s forwards;
+}
+#start-screen button:hover {
+    scale: 1.05;
+    border-color: red;
+    color: #e1d3d3;
+}
+@keyframes remove-start-text {
+    to {
+        transform: translateX(50vh);
+        opacity: 0;
+    }
+}
+#start-screen button.r,
+#start-screen p.r {
+    opacity: 1;
+    transform: translateX(0);
+    animation: remove-start-text 1.5s 0.2s forwards;
+}
+@keyframes fade-up {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        scale: 1;
+    }
+}
+#game-screen {
+    display: none;
+    opacity: 0;
+    scale: 0.8;
+    transform: translateY(50vh);
+    position: relative;
+    width: min(90vmin, 800px);
+    height: min(90vmin, 800px);
+    border: 5px solid #6f6f60;
+    border-radius: 15%;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+}
+#game-screen::-webkit-scrollbar {
+    display: none;
+}
+#game-screen.started {
+    animation: fade-up 2s ease forwards;
+}
+.instructions {
+    width: 90%;
+    position: absolute;
+    margin: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    font-family: "Cormorant Garamond";
+    font-size: bold;
+    font-size: 1.2rem;
+}
+.instructions button {
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #ed8282, #ed828288, #ed8282);
+    transition: 300ms ease;
+    margin-bottom: 2rem;
+    font-family: "Cormorant Garamond";
+}
+.instructions button:hover {
+    transform: translateY(-5px);
+    border: 1px solid red;
+}
+.instructions button:active {
+    transform: translateY(0);
+}
+.actual-game {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: #000;
+    transform-origin: center;
+    transform: translateX(50vh);
+    scale: 0;
+}
+@keyframes slide-out {
+    to {
+        transform: translateX(-50vh);
+        opacity: 0;
+        scale: 0;
+    }
+}
+@keyframes slide-in {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+        scale: 1;
+    }
+}
+.instructions.slide-out {
+    animation: slide-out 1.5s ease forwards;
+}
+.actual-game.slide-in {
+    animation: slide-in 1.5s ease forwards;
+}
+.collected-text,
+.updates {
+    text-align: center;
+    color: ivory;
+    margin-top: 0.5rem;
+    font-family: "Cormorant Garamond";
+    font-size: 0.8rem;
+}
+.star-container {
+    position: relative;
+    width: 100%;
+    height: 83%;
+    overflow: hidden;
+}
+.star {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    font-family: "Oswald";
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease;
+    will-change: left, top;
+}
+.star:hover {
+    transform: scale(1.15);
+}
+.star.collected {
+    animation: collect-star 0.4s ease forwards;
+    pointer-events: none;
+}
+@keyframes collect-star {
+    to {
+        transform: scale(0) rotate(180deg);
+        opacity: 0;
+    }
+}
+.actual-game.fade-out-game {
+    animation: fade-out-game 0.8s ease forwards;
+}
+@keyframes fade-out-game {
+    to {
+        opacity: 0;
+        scale: 0.85;
+    }
+}
+#end-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: min(90%, 800px);
+    text-align: center;
+    font-family: "Cormorant Garamond";
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #124412;
+}
+@keyframes fade-out-endText {
+    to {
+        transform: translateY(50vh);
+        scale: 0;
+    }
+}
+@keyframes show-in-last {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+#end-screen > p {
+    animation: fade-out-endText 2s 4s ease forwards;
+}
+.last-lines .last-line,
+.last-lines p {
+    opacity: 0;
+    transform: translateX(50vh);
+}
+.last-lines .last-line:nth-child(1) {
+    animation: show-in-last 1.5s 0.3s ease forwards;
+}
+.last-lines .last-line:nth-child(2) {
+    animation: show-in-last 1.5s 0.5s ease forwards;
+}
+.last-lines .last-line:nth-child(3) {
+    animation: show-in-last 1.5s 0.8s ease forwards;
+}
+.last-lines .last-line:nth-child(4) {
+    animation: show-in-last 1.5s 1s ease forwards;
+}
+.last-lines .last-line:nth-child(5) {
+    animation: show-in-last 1.5s 1.3s ease forwards;
+}
+.last-lines .last-line:nth-child(6) {
+    animation: show-in-last 1.5s 1.5s ease forwards;
+}
+.last-lines .last-line:nth-child(7) {
+    animation: show-in-last 1.5s 1.8s ease forwards;
+}
+.last-lines .last-line:nth-child(8) {
+    animation: show-in-last 1.5s 2s ease forwards;
+}
+.last-lines p {
+    animation: show-in-last 1.5s 2.2s ease forwards;
+}
+.last-lines {
+    list-style: none;
+    font-family: "Great Vibes";
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: #dd7c11;
+    letter-spacing: 0.1rem;
+}
